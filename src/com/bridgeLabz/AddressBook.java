@@ -85,5 +85,19 @@ public class AddressBook {
             }
         }
     }
+    public void delete(){
+        System.out.println("Enter name of the contact which you want to delete: ");
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        for(int i=0;i<contactList.size();i++) {
+            Contact contact =contactList.get(i);
+            if(contact.getFirstName().equals(name))
+            {
+                contactList.remove(contact);
+            }
+        }
+        System.out.println("Contact deleted!!!!");
+    }
 }
+
 
