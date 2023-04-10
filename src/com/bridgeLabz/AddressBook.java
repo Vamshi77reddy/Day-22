@@ -13,7 +13,9 @@ public class AddressBook {
     public void setAddressbookName(String addressbookName) {
         AddressbookName = addressbookName;
     }
+
     ArrayList<Contact> contactList = new ArrayList<>();
+
     public ArrayList<Contact> getContactList() {
         return contactList;
     }
@@ -21,7 +23,8 @@ public class AddressBook {
     public void setContactBook(ArrayList<Contact> contactBook) {
         this.contactList = contactBook;
     }
-    public void addContact(){
+
+    public void addContact() {
         Scanner sc = new Scanner(System.in);
         Contact contact = new Contact();
         System.out.print("Enter First name :");
@@ -51,22 +54,23 @@ public class AddressBook {
         contactList.add(contact);
         System.out.println("Contact added Successfully!!!");
     }
-    public void display(){
+
+    public void display() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter name of the contact : ");
         String name = sc.next();
-        for(int i=0;i<contactList.size();i++){
+        for (int i = 0; i < contactList.size(); i++) {
             System.out.println(contactList.get(i));
         }
     }
+
     public void Edit() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name of the contact which you want to edit");
         String name = sc.next();
-        for(int i =0;i<contactList.size();i++)
-        {
+        for (int i = 0; i < contactList.size(); i++) {
             Contact contact = contactList.get(i);
-            if(contact.getFirstName().equals(name)){
+            if (contact.getFirstName().equals(name)) {
                 System.out.println("Contact Found!!");
                 System.out.println("Please update the details");
                 System.out.print("Enter First name :");
@@ -94,21 +98,20 @@ public class AddressBook {
                 String email = sc.next();
                 contact.setEmail(email);
                 System.out.println("Contact Edited Successfully");
-            }
-            else {
+            } else {
                 System.out.println("Enter valid contact name");
                 Edit();
             }
         }
     }
-    public void delete(){
+
+    public void delete() {
         System.out.println("Enter name of the contact which you want to delete: ");
         Scanner sc = new Scanner(System.in);
         String name = sc.next();
-        for(int i=0;i<contactList.size();i++) {
-            Contact contact =contactList.get(i);
-            if(contact.getFirstName().equals(name))
-            {
+        for (int i = 0; i < contactList.size(); i++) {
+            Contact contact = contactList.get(i);
+            if (contact.getFirstName().equals(name)) {
                 contactList.remove(contact);
             }
         }
@@ -116,63 +119,67 @@ public class AddressBook {
     }
 
 
+    HashMap<String, AddressBook> hashMap = new HashMap<String, AddressBook>();
 
-    HashMap<String ,AddressBook> hashMap = new HashMap<String,AddressBook>();
-    public void AddAddressbook(){
+    public void AddAddressbook() {
         AddressBook addressBook = new AddressBook();
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name of the AddressBook");
-        String name=sc.next();
-        if(hashMap.containsKey(name)){
+        String name = sc.next();
+        if (hashMap.containsKey(name)) {
             System.out.println("Enter different name for the AddressBook");
             AddAddressbook();
-        }else {
+        } else {
             addressBook.setAddressbookName(name);
             hashMap.put(addressBook.getAddressbookName(), addressBook);
             System.out.println("Address book added!!");
         }
     }
-    public void add(){
-        if(hashMap.isEmpty())
-        {
+
+    public void add() {
+        if (hashMap.isEmpty()) {
             System.out.println("Your address book is empty first please add new Addressbook");
             AddAddressbook();
         }
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name of the addressbok in which you want to add contact: ");
         String name = sc.next();
-        if(hashMap.containsKey(name)){
+        if (hashMap.containsKey(name)) {
             AddressBook temp = hashMap.get(name);
             temp.addContact();
         }
     }
-    public void display1(){
+
+    public void display1() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name of the addressbok in which you want to display contact: ");
         String name = sc.next();
-        if(hashMap.containsKey(name)){
+        if (hashMap.containsKey(name)) {
             AddressBook temp = hashMap.get(name);
             temp.display();
         }
     }
-    public void delete1(){
+
+    public void delete1() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name of the addressbok in which you want to Delete contact: ");
         String name = sc.next();
-        if(hashMap.containsKey(name)){
+        if (hashMap.containsKey(name)) {
             AddressBook temp = hashMap.get(name);
             temp.delete();
         }
     }
-    public void Edit1(){
+
+    public void Edit1() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name of the addressbok in which you want to Edit contact: ");
         String name = sc.next();
-        if(hashMap.containsKey(name)){
+        if (hashMap.containsKey(name)) {
             AddressBook temp = hashMap.get(name);
             temp.Edit();
         }
     }
+
     public void displayAllAddressbook() {
         System.out.println("Displaying all addressbook");
         if (hashMap.isEmpty()) {
@@ -181,6 +188,7 @@ public class AddressBook {
             System.out.println(hashMap);
         }
     }
+
     public void searchBycity() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the name of the city which you want to show");
@@ -194,19 +202,25 @@ public class AddressBook {
         System.out.println(count + " Person Found!!! which belongs to " + cityname + " city");
         System.out.println(citylist);
     }
+
     public void searchByState() {
 
-            System.out.println("Enter the name of the city which you want to show");
+        System.out.println("Enter the name of the city which you want to show");
         Scanner sc = new Scanner(System.in);
 
         List<Contact> Statelist = new ArrayList<>();
         String statename = sc.next();
 
         hashMap.values().stream().forEach(addressBook -> {
-                Statelist.addAll(addressBook.getContactList().
-                        stream().filter(contact -> contact.getCity().equalsIgnoreCase(statename)).sorted(Comparator.comparing(Contact::getState)).collect(Collectors.toList()));
-            });
-        }
+            Statelist.addAll(addressBook.getContactList().
+                    stream().filter(contact -> contact.getCity().equalsIgnoreCase(statename)).sorted(Comparator.comparing(Contact::getState)).collect(Collectors.toList()));
+        });
+        int count = Statelist.size();
+        System.out.println("Total number of contact person");
+        System.out.println(count + " Person Found!!! which belongs to " + statename + " city");
+        System.out.println(Statelist);
+    }
+
 
 
     @Override
