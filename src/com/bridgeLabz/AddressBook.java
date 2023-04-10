@@ -181,20 +181,32 @@ public class AddressBook {
             System.out.println(hashMap);
         }
     }
-    public void searchBycity(){
+    public void searchBycity() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the name of the city which you want to show");
         String cityname = sc.next();
         List<Contact> citylist = new ArrayList<>();
-        hashMap.values().stream().forEach(addressBook ->{
+        hashMap.values().stream().forEach(addressBook -> {
             citylist.addAll(addressBook.getContactList().
-                    stream().filter(contact ->  contact.getCity().equalsIgnoreCase(cityname)).sorted(Comparator.comparing(Contact::getCity)).collect(Collectors.toList()));
+                    stream().filter(contact -> contact.getCity().equalsIgnoreCase(cityname)).sorted(Comparator.comparing(Contact::getCity)).collect(Collectors.toList()));
         });
         int count = citylist.size();
-        System.out.println(count+" Person Found!!! which belongs to " +cityname +" city");
+        System.out.println(count + " Person Found!!! which belongs to " + cityname + " city");
         System.out.println(citylist);
     }
+    public void searchByState() {
 
+            System.out.println("Enter the name of the city which you want to show");
+        Scanner sc = new Scanner(System.in);
+
+        List<Contact> Statelist = new ArrayList<>();
+        String statename = sc.next();
+
+        hashMap.values().stream().forEach(addressBook -> {
+                Statelist.addAll(addressBook.getContactList().
+                        stream().filter(contact -> contact.getCity().equalsIgnoreCase(statename)).sorted(Comparator.comparing(Contact::getState)).collect(Collectors.toList()));
+            });
+        }
 
 
     @Override
