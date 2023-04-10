@@ -43,6 +43,13 @@ public class AddressBookMain {
                     System.out.println(" Enter City:: ");
                     addressBook.searchBycity();
                     break;
+                case 8:
+                    System.out.println(" Enter state:: ");
+                    addressBook.searchByState();
+                    break;
+                case 9:
+                    addressBook.sort();
+                    break;
                 default:
                     System.out.println("Enter Option Between 1 To 7");
 

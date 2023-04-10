@@ -220,7 +220,14 @@ public class AddressBook {
         System.out.println(count + " Person Found!!! which belongs to " + statename + " city");
         System.out.println(Statelist);
     }
-
+    public void sort(){
+        List<Contact> citylist = new ArrayList<>();
+        hashMap.values().stream().forEach(addressBook ->{
+            citylist.addAll(addressBook.getContactList().
+                    stream().sorted(Comparator.comparing(Contact::getFirstName)).collect(Collectors.toList()));
+        });
+        System.out.println(citylist);
+    }
 
 
     @Override
