@@ -44,7 +44,7 @@ public class AddressBookMain {
                     addressBook.searchBycity();
                     break;
                 default:
-                    System.out.println("Enter Option Between 1 To 10");
+                    System.out.println("Enter Option Between 1 To 7");
 
             }}
     }
