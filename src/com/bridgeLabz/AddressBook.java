@@ -1,7 +1,6 @@
 package com.bridgeLabz;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class AddressBook {
     private String AddressbookName;
@@ -14,6 +13,13 @@ public class AddressBook {
         AddressbookName = addressbookName;
     }
     ArrayList<Contact> contactList = new ArrayList<>();
+    public ArrayList<Contact> getContactList() {
+        return contactList;
+    }
+
+    public void setContactBook(ArrayList<Contact> contactBook) {
+        this.contactList = contactBook;
+    }
     public void addContact(){
         Scanner sc = new Scanner(System.in);
         Contact contact = new Contact();
@@ -107,6 +113,87 @@ public class AddressBook {
         }
         System.out.println("Contact deleted!!!!");
     }
+
+
+
+    HashMap<String ,AddressBook> hashMap = new HashMap<String,AddressBook>();
+    public void AddAddressbook(){
+        AddressBook addressBook = new AddressBook();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name of the AddressBook");
+        String name=sc.next();
+        if(hashMap.containsKey(name)){
+            System.out.println("Enter different name for the AddressBook");
+            AddAddressbook();
+        }else {
+            addressBook.setAddressbookName(name);
+            hashMap.put(addressBook.getAddressbookName(), addressBook);
+            System.out.println("Address book added!!");
+        }
+    }
+    public void add(){
+        if(hashMap.isEmpty())
+        {
+            System.out.println("Your address book is empty first please add new Addressbook");
+            AddAddressbook();
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name of the addressbok in which you want to add contact: ");
+        String name = sc.next();
+        if(hashMap.containsKey(name)){
+            AddressBook temp = hashMap.get(name);
+            temp.addContact();
+        }
+    }
+    public void display1(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name of the addressbok in which you want to display contact: ");
+        String name = sc.next();
+        if(hashMap.containsKey(name)){
+            AddressBook temp = hashMap.get(name);
+            temp.display();
+        }
+    }
+    public void delete1(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name of the addressbok in which you want to Delete contact: ");
+        String name = sc.next();
+        if(hashMap.containsKey(name)){
+            AddressBook temp = hashMap.get(name);
+            temp.delete();
+        }
+    }
+    public void Edit1(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name of the addressbok in which you want to Edit contact: ");
+        String name = sc.next();
+        if(hashMap.containsKey(name)){
+            AddressBook temp = hashMap.get(name);
+            temp.Edit();
+        }
+    }
+    public void displayAllAddressbook() {
+        System.out.println("Displaying all addressbook");
+        if (hashMap.isEmpty()) {
+            System.out.println("Addressbook is empty");
+        } else {
+            System.out.println(hashMap);
+        }
+    }
+    public void searchBycity(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the name of the city which you want to show");
+        String cityname = sc.next();
+        List<Contact> citylist = new ArrayList<>();
+        hashMap.values().stream().forEach(addressBook ->{
+            citylist.addAll(addressBook.getContactList().
+                    stream().filter(contact ->  contact.getCity().equalsIgnoreCase(cityname)).sorted(Comparator.comparing(Contact::getCity)).collect(Collectors.toList()));
+        });
+        int count = citylist.size();
+        System.out.println(count+" Person Found!!! which belongs to " +cityname +" city");
+        System.out.println(citylist);
+    }
+
 
 
     @Override

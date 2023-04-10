@@ -4,72 +4,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class AddressBookMain {
-    HashMap<String ,AddressBook> hashMap = new HashMap<String,AddressBook>();
-    public void AddAddressbook(){
-        AddressBook addressBook = new AddressBook();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter name of the AddressBook");
-        String name=sc.next();
-        if(hashMap.containsKey(name)){
-            System.out.println("Enter different name for the AddressBook");
-            AddAddressbook();
-        }else {
-            addressBook.setAddressbookName(name);
-            hashMap.put(addressBook.getAddressbookName(), addressBook);
-            System.out.println("Address book added!!");
-        }
-    }
-    public void addcontact1(){
-        if(hashMap.isEmpty())
-        {
-            System.out.println("Your address book is empty first please add new Addressbook");
-            AddAddressbook();
-        }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter name of the addressbok in which you want to add contact: ");
-        String name = sc.next();
-        if(hashMap.containsKey(name)){
-            AddressBook temp = hashMap.get(name);
-            temp.addContact();
-        }
-    }
-    public void display1(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter name of the addressbok in which you want to display contact: ");
-        String name = sc.next();
-        if(hashMap.containsKey(name)){
-            AddressBook temp = hashMap.get(name);
-            temp.display();
-        }
-    }
-    public void delete1(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter name of the addressbok in which you want to Delete contact: ");
-        String name = sc.next();
-        if(hashMap.containsKey(name)){
-            AddressBook temp = hashMap.get(name);
-            temp.delete();
-        }
-    }
-    public void Edit1(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter name of the addressbok in which you want to Edit contact: ");
-        String name = sc.next();
-        if(hashMap.containsKey(name)){
-            AddressBook temp = hashMap.get(name);
-            temp.Edit();
-        }
-    }
-    public void displayAllAddressbook(){
-        System.out.println("Displaying all addressbook");
-        if(hashMap.isEmpty()){
-            System.out.println("Addressbook is empty");
-        }else {
-            System.out.println(hashMap);
-        }
-    }
+
     public static void main(String[] args) {
-        AddressBookMain addressBookMain = new AddressBookMain();
+        AddressBook addressBook =new AddressBook();
 
         Scanner sc = new Scanner(System.in);
         while(true){
@@ -85,23 +22,29 @@ public class AddressBookMain {
             int choice = sc.nextInt();
             switch (choice){
                 case 1 :
-                    addressBookMain.addcontact1();
+                    addressBook.add();
                     break;
                 case 2 :
-                    addressBookMain.display1();
+                    addressBook.display1();
                     break;
                 case 3 :
-                    addressBookMain.Edit1();
+                    addressBook.Edit1();
                     break;
                 case 4 :
-                    addressBookMain.delete1();
+                    addressBook.delete1();
                     break;
                 case 5:
-                    addressBookMain.AddAddressbook();
+                    addressBook.AddAddressbook();
                     break;
                 case 6:
-                    addressBookMain.displayAllAddressbook();
+                    addressBook.displayAllAddressbook();
                     break;
+                case 7:
+                    System.out.println(" Enter City:: ");
+                    addressBook.searchBycity();
+                    break;
+                default:
+                    System.out.println("Enter Option Between 1 To 10");
 
             }}
     }
